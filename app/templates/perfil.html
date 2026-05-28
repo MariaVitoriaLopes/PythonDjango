@@ -1,0 +1,66 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            
+            <div class="content-box mb-4 py-4">
+                <h3 class="fw-bold mb-4 text-center" style="color: #ffffff; text-shadow: 0 0 10px #8a2be2;">Perfil do Comprador</h3>
+                <div class="row border-bottom pb-2 mb-2 align-items-center" style="border-color: #8a2be2 !important;">
+                    <div class="col-3 fw-bold small" style="color: #00ffff;">Usuário</div>
+                    <div class="col-9 text-white font-monospace">{{ user.username }}</div>
+                </div>
+                <div class="row border-bottom pb-2 mb-3 align-items-center" style="border-color: #8a2be2 !important;">
+                    <div class="col-3 fw-bold small" style="color: #00ffff;">E-mail Cadastrado</div>
+                    <div class="col-9 text-white">{{ user.email }}</div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-3 fw-bold small" style="color: #00ffff;">Security</div>
+                    <div class="col-9">
+                        <a href="{% url 'alterarsenha' %}" class="btn btn-sm btn-dark fw-bold px-3 py-1" style="font-size: 12px; border: 1px solid #8a2be2; color: #ffffff;">Alterar Credenciais</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h4 class="fw-bold text-center mb-4" style="color: #00ffff; text-shadow: 0 0 5px rgba(0,255,255,0.2);">Meus Eletrônicos Adquiridos</h4>
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0 text-center text-white" style="--bs-table-bg: transparent;">
+                        <thead style="background-color: #110929; color: #00ffff; border-bottom: 2px solid #8a2be2;">
+                            <tr class="small">
+                                <th class="py-2">Pedido</th>
+                                <th class="py-2">Preview</th>
+                                <th class="py-2">Eletrônico</th>
+                                <th class="py-2">Valor</th>
+                                <th class="py-2">Qtd</th>
+                                <th class="py-2">Data do Pedido</th>
+                                <th class="py-2">Feedback</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in compras %}
+                            <tr style="border-bottom: 1px solid #3d1d75;">
+                                <td class="fw-bold small" style="color: #a0ffff;">{{ item.pedido }}</td>
+                                <td><span style="font-size: 20px;">💻</span></td>
+                                <td class="text-white small fw-bold">{{ item.nome }}</td>
+                                <td class="small" style="color: #00ffff; font-weight: bold;">R$ {{ item.preco }}</td>
+                                <td class="text-white small">{{ item.quantidade }}</td>
+                                <td class="text-white small">{{ item.data }}</td>
+                                <td>
+                                    <a href="{% url 'avaliacao' %}" class="btn btn-sm py-1 px-3 text-white fw-bold" style="background-color: #ff007f; font-size: 11px; box-shadow: 0 0 8px #ff007f; border: none;">Avaliar Peça</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center py-4 small" style="color: #ffffff;">Nenhuma compra de eletrônico registrada neste perfil.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

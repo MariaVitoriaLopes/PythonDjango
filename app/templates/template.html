@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}ElectroZone - Loja de Eletrônicos{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0b061f;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        
+        .navbar-custom {
+            background-color: #110929 !important;
+            border-bottom: 2px solid #8a2be2;
+            box-shadow: 0 4px 20px rgba(138, 43, 226, 0.3);
+            padding: 12px 0;
+        }
+        .navbar-custom .navbar-brand {
+            color: #ffffff !important;
+            font-weight: 700;
+            font-size: 20px;
+            text-shadow: 0 0 10px #8a2be2, 0 0 20px #00ffff;
+        }
+        .navbar-custom .nav-link {
+            color: #cbd5e1 !important;
+            font-weight: 500;
+            font-size: 14px;
+            margin-left: 15px;
+            transition: all 0.2s;
+        }
+        .navbar-custom .nav-link:hover {
+            color: #00ffff !important;
+            text-shadow: 0 0 8px #00ffff;
+        }
+        .btn-login-nav {
+            background-color: transparent !important;
+            color: #00ffff !important;
+            border: 1px solid #00ffff !important;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+            font-weight: bold;
+            padding: 5px 18px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .btn-login-nav:hover {
+            background-color: #00ffff !important;
+            color: #0b061f !important;
+        }
+        .btn-logout-nav {
+            background-color: #ff007f !important;
+            color: white !important;
+            box-shadow: 0 0 10px #ff007f;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            border: none;
+        }
+
+        .footer-custom {
+            background-color: #110929;
+            color: #ffffff;
+            border-top: 2px solid #8a2be2;
+            box-shadow: 0 -4px 20px rgba(138, 43, 226, 0.2);
+            text-align: center;
+            padding: 25px 0;
+            margin-top: auto;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .content-box {
+            background: linear-gradient(135deg, #180f38 0%, #110929 100%);
+            border: 1px solid #3d1d75;
+            border-radius: 8px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            margin-bottom: 2rem;
+        }
+        .section-title {
+            color: #ffffff;
+            text-shadow: 0 0 10px #8a2be2, 0 0 20px #00ffff;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+        .form-control, .form-select {
+            background-color: #0b061f !important;
+            border: 1px solid #8a2be2 !important;
+            color: #ffffff !important;
+            border-radius: 4px;
+            padding: 10px 12px;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #00ffff !important;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5) !important;
+            color: #ffffff !important;
+        }
+        .btn-submit-tech {
+            background-color: #8a2be2 !important;
+            border: none !important;
+            color: white !important;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 0 12px #8a2be2;
+            transition: all 0.2s;
+        }
+        .btn-submit-tech:hover {
+            box-shadow: 0 0 20px #8a2be2;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">⚡ ElectroZone</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'index' %}#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'index' %}#quem-somos">Quem somos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'index' %}#produtos">Produtos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'index' %}#contato">Contato</a></li>
+                    
+                  
+                    {% if user.is_authenticated %}
+                        {% if user.is_staff %}
+                            <li class="nav-item"><a class="nav-link fw-bold text-warning" href="{% url 'dashboard' %}">Dashboard</a></li>
+                            
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link fw-bold text-info" href="{% url 'perfil' %}">Perfil</a></li>
+                        {% endif %}
+                        <li class="nav-item-separator mx-2 text-white-50">|</li>
+                        <li class="nav-item small me-2" style="color: #00ffff;">Olá, {{ user.username }}</li>
+                        
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-logout-nav ms-2" style="cursor: pointer;">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link btn-login-nav" href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-wrapper flex-grow-1">
+        {% block conteudo %}{% endblock %}
+    </div>
+
+   <footer class="footer-custom mt-auto">
+    <div class="container py-4">
+        <div class="row gy-4 align-items-center">
+            
+            <div class="col-md-4 text-center text-md-start">
+                <h5 class="fw-bold mb-2" style="color: #ffffff; text-shadow: 0 0 10px #8a2be2, 0 0 20px #00ffff;">⚡ ElectroZone</h5>
+                <p class="small text-white-50 m-0">O terminal definitivo para os seus componentes de hardware e eletrônicos de alta performance.</p>
+            </div>
+
+            <div class="col-md-4 text-center">
+                <h6 class="fw-bold mb-2 small" style="color: #00ffff; letter-spacing: 1px;">Siga Nossas Redes</h6>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="#" class="text-white-50 text-decoration-none small hover-neon">Instagram</a>
+                    <a href="#" class="text-white-50 text-decoration-none small hover-neon">LinkedIn</a>
+                    <a href="#" class="text-white-50 text-decoration-none small hover-neon">GitHub</a>
+                </div>
+            </div>
+
+            <div class="col-md-4 text-center text-md-end">
+                <h6 class="fw-bold mb-2 small" style="color: #00ffff; letter-spacing: 1px;">Precisa de Ajuda?</h6>
+                <a href="{% url 'index' %}#contato" class="btn btn-sm fw-bold px-3 py-1.5 transition-all" style="background-color: transparent; border: 1px solid #00ffff; color: #00ffff; box-shadow: 0 0 8px rgba(0,255,255,0.2);">
+                    Suporte Técnico
+                </a>
+            </div>
+
+        </div>
+
+        <hr class="my-4" style="border-color: #3d1d75 !important;">
+
+        <div class="row">
+            <div class="col text-center">
+                <p class="m-0 text-white-50" style="font-size: 12px;">
+                    &copy; 2026 ElectroZone. Desenvolvido por <span style="color: #00ffff;">Maria do Grau & Equipe</span>. Todos os direitos reservados.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

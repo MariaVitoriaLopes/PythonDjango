@@ -1,0 +1,77 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Terminal de Compras - ElectroZone{% endblock %}
+
+{% block conteudo %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-white mb-0" style="text-shadow: 0 0 10px #8a2be2, 0 0 20px #00ffff;">
+                🛒 CARRINHO DE COMPRAS
+            </h2>
+            <p class="text-white-50 small mb-0">Gerencie os componentes de hardware selecionados para sua diretriz.</p>
+        </div>
+        <a href="{% url 'produto' %}" class="btn btn-sm fw-bold px-4 text-white" style="background: transparent; border: 1px solid #00ffff; box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);">
+            Continuar Comprando
+        </a>
+    </div>
+
+    <div class="content-box" style="background: linear-gradient(135deg, #130b30 0%, #0a041c 100%); border: 1px solid #8a2be2; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); padding: 25px; overflow: hidden;">
+        
+        <div class="table-responsive">
+            <table class="table table-dark align-middle mb-0" style="background: transparent;">
+                <thead style="border-bottom: 2px solid #8a2be2;">
+                    <tr style="color: #00ffff; font-size: 13px; letter-spacing: 1px;">
+                        <th class="py-3 px-4">COMPONENTE</th>
+                        <th class="py-3 text-center">PREÇO UNITÁRIO</th>
+                        <th class="py-3 text-center">QUANTIDADE</th>
+                        <th class="py-3 text-center">SUBTOTAL</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size: 14px;">
+                    {% for item in carrinho %}
+                    <tr style="border-bottom: 1px solid #3d1d75;">
+                        <td class="py-3 px-4">
+                            <span class="fw-bold text-white">{{ item.nome }}</span>
+                        </td>
+                        <td class="text-center text-white-50">R$ {{ item.preco|floatformat:2 }}</td>
+                        <td class="text-center fw-bold text-white">{{ item.quantidade }}x</td>
+                        <td class="text-center fw-bold" style="color: #00ffff;">R$ {{ item.subtotal|floatformat:2 }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-5 text-white-50">
+                            <span class="display-4 d-block mb-2" style="opacity: 0.3;">🛒</span>
+                            Seu terminal está vazio no momento. Selecione componentes na loja.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% if carrinho %}
+    <div class="row mt-4 align-items-start">
+        <div class="col-md-6 mb-3">
+            <a href="{% url 'limpar_carrinho' %}" class="btn btn-sm text-white-50" style="text-decoration: underline; background: transparent; border: none;">
+                ❌ Limpar todo o carrinho
+            </a>
+        </div>
+        <div class="col-md-6">
+            <div class="p-4 rounded text-end" style="background: rgba(138, 43, 226, 0.05); border: 1px solid #8a2be2; box-shadow: 0 0 15px rgba(138, 43, 226, 0.1);">
+                <span class="text-white-50 small d-block mb-1">VALOR TOTAL DA ORDEM</span>
+                <h2 class="fw-bold mb-4" style="color: #00ffff; text-shadow: 0 0 8px #00ffff;">R$ {{ total_geral|floatformat:2 }}</h2>
+                
+                <form action="{% url 'finalizar_compra' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn w-100 fw-bold text-white py-2.5" style="background-color: #ff007f; box-shadow: 0 0 12px #ff007f; border: none; letter-spacing: 1px;">
+                    FINALIZAR ORDEM DE COMPRA
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+<div class="tech-box">
+    <h2 class="tech-neon-title">⚙️ CORPORATIVO // QUEM SOMOS</h2>
+    <p class="lead text-white-50">
+        Fundada sob a premissa de máxima performance, a <strong>TechZone</strong> opera no fornecimento e distribuição de hardware de ponta para entusiastas, overclockers e datacenters de alta densidade.
+    </p>
+    <p class="text-muted">
+        Nossa arquitetura conecta estoques físicos locais automatizados e fluxos de importação global em tempo real via canais de API estáveis, trazendo transparência, agilidade de carga e segurança NoSQL na ponta final para a experiência do usuário.
+    </p>
+    
+    <div class="mt-5">
+        <h4 class="fw-bold text-info mb-3"># EQUIPE DE DESENVOLVIMENTO</h4>
+        <div class="row g-3">
+            {% for aluno in alunos %}
+                <div class="col-md-4">
+                    <div class="p-3 rounded text-center border" style="background: rgba(255,255,255,0.02); border-color: #3d1d75 !important;">
+                        <span class="fw-bold" style="color: #00ffff;">{{ aluno }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

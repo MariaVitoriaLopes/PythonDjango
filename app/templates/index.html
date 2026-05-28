@@ -1,0 +1,202 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+<style>
+    .hero-banner {
+        background: linear-gradient(rgba(11, 6, 31, 0.8), rgba(11, 6, 31, 0.9)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200') center/cover no-repeat;
+        color: white;
+        padding: 90px 0;
+        text-align: center;
+        border-bottom: 1px solid #3d1d75;
+    }
+    .hero-banner h1 {
+        font-size: 38px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        text-shadow: 0 0 15px #8a2be2, 0 0 25px #00ffff;
+    }
+    .hero-banner p {
+        font-size: 16px;
+        color: #ffffff;
+        margin-bottom: 25px;
+    }
+    .btn-hero {
+        background-color: transparent;
+        color: #ff007f;
+        border: 2px solid #ff007f;
+        font-weight: bold;
+        padding: 8px 25px;
+        border-radius: 4px;
+        text-decoration: none;
+        box-shadow: 0 0 12px #ff007f;
+        transition: all 0.2s;
+    }
+    .btn-hero:hover {
+        background-color: #ff007f;
+        color: #ffffff;
+    }
+
+    .cards-section-title {
+        color: #ffffff;
+        font-weight: 700;
+        text-align: center;
+        text-shadow: 0 0 10px #8a2be2;
+        margin-bottom: 40px;
+    }
+    .benefit-card {
+        background: linear-gradient(135deg, #180f38 0%, #110929 100%);
+        border: 1px solid #8a2be2;
+        border-radius: 8px;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .benefit-card h5 {
+        color: #00ffff;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+    .benefit-card p {
+        color: #ffffff !important;
+    }
+
+    .review-card {
+        background: #180f38;
+        border: 1px solid #3d1d75;
+        border-radius: 6px;
+        padding: 20px;
+        text-align: center;
+    }
+    .review-card h6 {
+        font-weight: 700;
+        color: #00ffff;
+    }
+    .review-card p {
+        color: #ffffff !important;
+    }
+    .stars {
+        color: #ffc107;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .team-card {
+        background: #110929;
+        border: 1px solid #3d1d75;
+        border-radius: 8px;
+        padding: 25px 15px;
+        text-align: center;
+    }
+    .team-img {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+        border: 2px solid #8a2be2;
+    }
+</style>
+
+<div id="home" class="hero-banner">
+    <div class="container">
+        <h1>Hardwares de Alta Performance</h1>
+        <p>Eletrônicos, componentes gamer e periféricos de última geração com entrega rápida.</p>
+        <a href="{% url 'cadastro' %}" class="btn-hero">Cadastre-se e Ganhe Desconto</a>
+    </div>
+</div>
+
+<div class="container mb-5 py-4">
+    <h3 class="cards-section-title">Por que escolher a ElectroZone?</h3>
+    <p class="text-center mb-5" style="max-width: 600px; margin: 0 auto; color: #ffffff;">
+        Trabalhamos com as melhores marcas globais de eletrônicos, garantindo procedência e desempenho para o seu setup.
+    </p>
+    
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-3">
+            <div class="benefit-card">
+                <h5>Garantia Estendida</h5>
+                <p class="small mb-0">Suporte e cobertura total em qualquer componente adquirido.</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="benefit-card">
+                <h5>Máxima Performance</h5>
+                <p class="small mb-0">Peças selecionadas para overclock e renderização de alto nível.</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="benefit-card">
+                <h5>Envio Seguro</h5>
+                <p class="small mb-0">Embalagens estáticas de proteção para que o produto chegue impecável.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr style="border-color: #8a2be2;" class="container my-5">
+
+<div id="quem-somos" class="container py-4 mb-5">
+    <div class="text-center mb-5" style="max-width: 700px; margin: 0 auto;">
+        <h2 class="section-title">Quem somos</h2>
+        <p style="color: #ffffff;">
+            Estamos no mercado com o foco de entregar os melhor aparelhos eletrônicos de tecnologia, para você
+        </p>
+    </div>
+
+    <div class="pt-2">
+        <h4 class="text-center fw-bold mb-4" style="color: #00ffff; text-shadow: 0 0 5px #00ffff;">Especialistas Técnicos</h4>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-3">
+                <div class="team-card">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200" class="team-img" alt="Mariana">
+                    <h6 class="text-white">Maria Vitória Lopes </h6>
+                    <span style="color: #a0ffff; font-size: 13px;"> Representante da loja</span>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<hr style="border-color: #8a2be2;" class="container my-5">
+
+<div id="produtos" class="container py-4 mb-5">
+    <h3 class="section-title mb-4">Catálogo de Eletrônicos</h3>
+    <p class="text-center mb-4" style="color: #ffffff;">Explore mouses, teclados mecânicos, processadores e placas mãe em estoque.</p>
+    <div class="text-center">
+        <a href="{% url 'produto' %}" class="btn btn-submit-tech px-5">VER TODOS OS PRODUTOS</a>
+    </div>
+</div>
+
+<hr style="border-color: #8a2be2;" class="container my-5">
+
+<div id="contato" class="container py-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="content-box">
+                <h3 class="section-title">Contato e Suporte</h3>
+                <p class="text-center small mb-4" style="color: #ffffff;">Ficou com alguma dúvida sobre compatibilidade de peças? Fale conosco agora.</p>
+                <a href="{% url 'addcontato' %}" class="btn btn-submit-tech w-100">Abrir Chamado de Suporte</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5 pb-5">
+    <h4 class="text-center fw-bold mb-4" style="color: #ffffff;">Opinião dos Compradores</h4>
+    <div class="row g-4 justify-content-center">
+        {% for av in avaliacoes %}
+        <div class="col-md-3">
+            <div class="review-card">
+                <h6>{{ av.cliente }}</h6>
+                <p class="small mb-1">"{{ av.comentario }}"</p>
+                <div class="stars">
+                    {% if av.nota == 5 %}★★★★★{% elif av.nota == 4 %}★★★★{% elif av.nota == 3 %}★★★{% else %}★★{% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center small" style="color: #ffffff;">Nenhum feedback de produto cadastrado no NoSQL.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

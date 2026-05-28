@@ -1,0 +1,48 @@
+{% extends 'template.html' %}
+
+{% block titulo %}ElectroZone - Editar Categoria{% endblock %}
+
+{% block conteudo %}
+<style>
+    form input[type="text"], form select {
+        background-color: #0b061f !important;
+        border: 1px solid #8a2be2 !important;
+        color: #ffffff !important;
+        border-radius: 4px;
+        padding: 10px 12px;
+        width: 100%;
+        margin-bottom: 15px;
+        transition: all 0.2s;
+    }
+    form input[type="text"]:focus {
+        border-color: #00ffff !important;
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5) !important;
+        outline: none;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="content-box">
+                <h3 class="section-title">Modificar Categoria</h3>
+                <p class="text-center text-white-50 small mb-4">Altere o nome identificador do grupo técnico selecionado.</p>
+                
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form }}
+                    </div>
+                    <button type="submit" class="btn btn-submit-tech w-100 mt-2" style="background-color: #ff007f !important; box-shadow: 0 0 12px #ff007f;">
+                        Atualizar Registro
+                    </button>
+                </form>
+                
+                <div class="text-center mt-3">
+                    <a href="{% url 'categoria' %}" class="small" style="color: #00ffff; font-weight: bold; text-decoration: none;">Cancelar e Voltar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

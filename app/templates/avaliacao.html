@@ -1,0 +1,28 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="tech-box">
+            <h2 class="tech-neon-title">⭐ ENVIAR FEEDBACK</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-bold">MÉTRICA DE AVALIAÇÃO (1 A 5)</label>
+                    <select name="nota" class="form-select" required>
+                        <option value="5">5 Estrelas (Excelente)</option>
+                        <option value="4">4 Estrelas (Bom)</option>
+                        <option value="3">3 Estrelas (Regular)</option>
+                        <option value="2">2 Estrelas (Insuficiente)</option>
+                        <option value="1">1 Estrela (Crítico)</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-bold">COMENTÁRIO CORPORATIVO</label>
+                    <textarea name="comentario" rows="3" class="form-control" placeholder="Descreva os pontos da sua experiência técnica..." required></textarea>
+                </div>
+                <button type="submit" class="btn w-100 fw-bold mt-2" style="background-color: #00ffff; color: #0b061f; box-shadow: 0 0 12px #00ffff;">ENVIAR AVALIAÇÃO</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

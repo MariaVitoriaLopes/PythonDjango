@@ -1,0 +1,27 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="content-box">
+                <h3 class="section-title">Alterar Senha</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="alert alert-danger p-2 mt-1 small bg-dark text-danger border-danger" style="font-size: 11px;">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-submit-tech w-100 mt-2">Atualizar Senha de Acesso</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

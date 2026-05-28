@@ -1,0 +1,49 @@
+{% extends 'template.html' %}
+
+{% block titulo %}ElectroZone - Categorias de Peças{% endblock %}
+
+{% block conteudo %}
+<div class="container py-5">
+    <div class="content-box">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="fw-bold text-white mb-1" style="text-shadow: 0 0 10px #8a2be2;">Categorias de Hardware</h3>
+                <p class="text-white-50 small mb-0">Classificações e famílias de componentes eletrônicos.</p>
+            </div>
+            <a href="{% url 'addcategoria' %}" class="btn btn-sm btn-submit-tech px-4">+ Adicionar Categoria</a>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table align-middle text-center mb-0 text-white" style="--bs-table-bg: transparent;">
+                <thead style="background-color: #110929; color: #00ffff; border-bottom: 2px solid #8a2be2;">
+                    <tr class="small">
+                        <th class="py-2">ID</th>
+                        <th class="py-2 text-start ps-4">Nome da Categoria</th>
+                        <th class="py-2" colspan="2">Ações de Gerenciamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if categorias %}
+                        {% for cat in categorias %}
+                        <tr style="border-bottom: 1px solid #3d1d75; transition: background 0.2s;">
+                            <td class="small fw-bold" style="color: #a0ffff;">#{{ cat.id }}</td>
+                            <td class="text-white small text-start ps-4 fw-bold">{{ cat.nome }}</td>
+                            <td style="width: 10%;">
+                                <a href="{% url 'editcategoria' cat.id %}" class="btn btn-sm btn-dark py-1 px-3" style="font-size: 11px; font-weight: bold; border: 1px solid #8a2be2; color: #fff;">Editar</a>
+                            </td>
+                            <td style="width: 10%;">
+                                <a href="{% url 'delcategoria' cat.id %}" class="btn btn-sm btn-danger py-1 px-3" style="font-size: 11px; font-weight: bold; background-color: #ff007f; border: none; box-shadow: 0 0 8px #ff007f;">Excluir</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center py-4 small" style="color: #ffffff;">Nenhuma categoria de peças cadastrada no sistema.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

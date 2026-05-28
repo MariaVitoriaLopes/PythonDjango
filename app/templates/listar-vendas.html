@@ -1,0 +1,94 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Relatório de Transações - ElectroZone{% endblock %}
+
+{% block conteudo %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-white mb-0" style="text-shadow: 0 0 10px #8a2be2, 0 0 20px #00ffff;">
+                 RELATÓRIO DE VENDAS
+            </h2>
+            <p class="text-white-50 small mb-0">Monitoramento em tempo real de fluxos de hardware e diretrizes comerciais.</p>
+        </div>
+        <a href="{% url 'dashboard' %}" class="btn btn-sm fw-bold px-4 text-white" style="background: transparent; border: 1px solid #00ffff; box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); transition: 0.3s;">
+            Voltar ao Terminal
+        </a>
+    </div>
+
+    <div class="content-box" style="background: linear-gradient(135deg, #130b30 0%, #0a041c 100%); border: 1px solid #8a2be2; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); padding: 25px; overflow: hidden;">
+        
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0" style="background: transparent;">
+                <thead style="border-bottom: 2px solid #8a2be2;">
+                    <tr style="color: #00ffff; font-size: 13px; letter-spacing: 1px;">
+                        <th class="py-3 px-4">COMPRADOR</th>
+                        <th class="py-3">HARDWARE / COMPONENTE</th>
+                        <th class="py-3 text-center">PREÇO (R$)</th>
+                        <th class="py-3 text-center">DATA REGISTRO</th>
+                        <th class="py-3 text-center">GERENCIAMENTO</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size: 14px; border-top: none;">
+                    {% for venda in vendas %}
+                    <tr style="border-bottom: 1px solid #3d1d75; transition: 0.3s;">
+                        <td class="py-3 px-4">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle me-2" style="width: 10px; height: 10px; background-color: #00ffff; box-shadow: 0 0 8px #00ffff;"></div>
+                                <span class="fw-bold">{{ venda.usuario.username }}</span>
+                            </div>
+                        </td>
+                        <td class="text-white-50 italic">{{ venda.produto_nome }}</td>
+                        <td class="text-center fw-bold" style="color: #00ffff;">R$ {{ venda.preco }}</td>
+                        <td class="text-center text-white-50">{{ venda.data_compra|date:"d/m/Y H:i" }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'delvenda' venda.id %}" class="btn btn-sm px-3" style="background: rgba(255, 0, 127, 0.1); border: 1px solid #ff007f; color: #ff007f; transition: 0.3s;" onclick="return confirm('Deseja apagar este registro de transação?')">
+                                🗑️ Excluir
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-5 text-white-50">
+                            <i class="display-1 d-block mb-3" style="opacity: 0.2;">📡</i>
+                            Nenhuma transação registrada no banco de dados local.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex gap-3">
+        <div class="p-3 rounded" style="background: rgba(138, 43, 226, 0.1); border-left: 4px solid #8a2be2; flex: 1;">
+            <span class="text-white-50 small d-block">TOTAL DE VENDAS</span>
+            <h4 class="text-white fw-bold mb-0">{{ vendas.count }} Unidades</h4>
+        </div>
+        
+    </div>
+</div>
+
+<style>
+    /* Efeito de Hover nas linhas da tabela */
+    .table-hover tbody tr:hover {
+        background-color: rgba(138, 43, 226, 0.05) !important;
+        box-shadow: inset 0 0 15px rgba(138, 43, 226, 0.1);
+    }
+    
+    /* Estilização da barra de rolagem para o estilo Cyberpunk */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #0b061f;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #3d1d75;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #8a2be2;
+    }
+</style>
+{% endblock %}

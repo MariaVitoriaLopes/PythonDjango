@@ -1,0 +1,45 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+<div class="container py-5">
+    <div class="content-box" style="background: linear-gradient(135deg, #130b30 0%, #0a041c 100%); border: 1px solid #8a2be2; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); padding: 25px;">
+        <h3 class="fw-bold text-white mb-4 text-center" style="text-shadow: 0 0 10px #8a2be2;">Controle de Clientes</h3>
+        
+        <div class="text-end mb-3">
+            <a href="{% url 'admin_add_comprador' %}" class="btn btn-sm fw-bold text-white mb-3" style="background-color: #8a2be2; box-shadow: 0 0 10px #8a2be2;">
+    ➕ Cadastrar Novo Comprador
+</a>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table align-middle text-center mb-0 text-white" style="--bs-table-bg: transparent;">
+                <thead style="background-color: #110929; color: #00ffff; border-bottom: 2px solid #8a2be2;">
+                    <tr class="small">
+                        <th class="py-2">UID</th>
+                        <th class="py-2">Nome de Usuário</th>
+                        <th class="py-2">E-mail</th>
+                        <th class="py-2">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in usuarios %}
+                    <tr style="border-bottom: 1px solid #3d1d75;">
+                        <td class="small fw-bold" style="color: #a0ffff;">#{{ u.id }}</td>
+                        <td class="text-white small">{{ u.username }}</td>
+                        <td class="text-white small">{{ u.email }}</td>
+                        <td>
+                            <a href="{% url 'editar_comprador' u.id %}" class="btn btn-sm btn-dark py-1 px-2 me-1" style="font-size: 11px; font-weight: bold; border: 1px solid #8a2be2; color: #fff;">Editar</a>
+                            
+                            <a href="{% url 'remover_comprador' u.id %}" class="btn btn-sm btn-danger py-1 px-2" style="font-size: 11px; font-weight: bold; background-color: #ff007f; border: none; box-shadow: 0 0 8px #ff007f;">Remover</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4 small" style="color: #ffffff50;">Nenhum cliente localizado no banco de dados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

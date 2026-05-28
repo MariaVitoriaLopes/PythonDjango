@@ -1,0 +1,33 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="content-box">
+                <h3 class="section-title">Criar Conta</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.help_text %}
+                                <div class="small mt-1" style="font-size: 11px; color: #a0ffff !important;">{{ field.help_text }}</div>
+                            {% endif %}
+                            {% if field.errors %}
+                                <div class="alert alert-danger p-2 mt-1 small bg-dark text-danger border-danger" style="font-size: 11px;">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-submit-tech w-100 mt-2">Registrar</button>
+                </form>
+                <div class="text-center mt-3">
+                    <span class="small" style="color: #ffffff;">Já é cliente? <a href="{% url 'login' %}" style="color: #00ffff; font-weight: bold;">Fazer login</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

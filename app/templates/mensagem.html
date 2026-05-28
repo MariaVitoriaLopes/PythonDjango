@@ -1,0 +1,38 @@
+{% extends 'template.html' %}
+
+{% block conteudo %}
+<div class="container py-5 d-flex justify-content-center">
+    <div class="content-box w-100" style="max-width: 650px; background: linear-gradient(135deg, #130b30 0%, #0a041c 100%); border: 1px solid #8a2be2; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); padding: 35px;">
+        
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-white mb-2" style="text-shadow: 0 0 10px #8a2be2;">📥 CANAL DE SUPORTE</h2>
+            <p class="text-white-50 small">Envie sua diretriz. Nossa equipe de engenharia responderá em breve.</p>
+        </div>
+
+        
+
+        <form method="POST" class="text-white">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label small fw-bold text-white-50">NOME COMPLETADO</label>
+                <input type="text" name="nome" class="form-control text-white" placeholder="Ex: Admin Cyber" required style="background: #0d0621; border: 1px solid #3d1d75;">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label small fw-bold text-white-50">ENDEREÇO DE EMAIL</label>
+                <input type="email" name="email" class="form-control text-white" placeholder="admin@electrozone.com" required style="background: #0d0621; border: 1px solid #3d1d75;">
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label small fw-bold text-white-50">MENSAGEM / FEEDBACK</label>
+                <textarea name="mensagem" rows="5" class="form-control text-white" placeholder="Digite os detalhes da sua solicitação..." required style="background: #0d0621; border: 1px solid #3d1d75; resize: none;"></textarea>
+            </div>
+
+            <button type="submit" class="btn w-100 fw-bold text-white py-2.5" style="background-color: #8a2be2; box-shadow: 0 0 12px #8a2be2; border: none;">
+                ENVIAR DIRETRIZ
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+<style>
+    .hardware-card {
+        background: linear-gradient(135deg, #180f38 0%, #110929 100%);
+        border: 1px solid #8a2be2;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.2s, border-color 0.2s;
+    }
+    .hardware-card:hover {
+        border-color: #00ffff;
+        transform: translateY(-2px);
+    }
+    .tech-tag {
+        background-color: #3d1d75;
+        color: #00ffff;
+        font-size: 11px;
+        font-weight: bold;
+        padding: 3px 10px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+    .specs-text {
+        font-size: 13px;
+        color: #cbd5e1;
+        margin-top: 8px;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h2 class="fw-bold text-white mb-1" style="text-shadow: 0 0 10px #8a2be2;">Catálogo de Hardwares</h2>
+            <p class="text-white-50 small mb-0">Componentes eletrônicos disponíveis em tempo real.</p>
+        </div>
+        {% if user.is_staff %}
+        <a href="{% url 'addproduto' %}" class="btn btn-sm px-4 fw-bold text-white" style="background-color: #8a2be2; box-shadow: 0 0 10px #8a2be2; border: none; line-height: 28px;">
+            + Cadastrar Produto
+        </a>
+        {% endif %}
+    </div>
+
+    <h4 class="text-white mb-4 fw-bold border-start border-primary border-3 ps-2">Estoque Próprio</h4>
+    <div class="row row-cols-1 row-cols-md-4 g-4 mb-5">
+        {% for prod in produtos %}
+        <div class="col">
+            <div class="hardware-card">
+                <div>
+                    <div class="text-center fs-2 mb-2">
+                        {% if prod.imagem %}
+                            <img src="{{ prod.imagem.url }}" alt="{{ prod.nome }}" style="max-height: 50px; object-fit: contain;">
+                        {% else %}
+                            📦
+                        {% endif %}
+                    </div>
+                    <span class="tech-tag">{{ prod.categoria.nome|default:"Geral" }}</span>
+                    <h5 class="fw-bold text-white">{{ prod.nome }}</h5>
+                    <p class="specs-text">{{ prod.descricao|default:"Componente de alta qualidade." }}</p>
+                </div>
+                <div class="pt-3 border-top" style="border-color: #3d1d75 !important;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="fs-5 fw-bold" style="color: #00ffff;">R$ {{ prod.preco }}</span>
+                        <span class="small text-white-50">Qtd: {{ prod.estoque }}</span>
+                    </div>
+                    
+                    {% if user.is_staff %}
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'editproduto' prod.id %}" class="btn btn-sm w-50 fw-bold text-white text-center py-1.5" style="border: 1px solid #8a2be2; background: transparent; text-decoration: none;">Editar</a>
+                        <a href="{% url 'delproduto' prod.id %}" class="btn btn-sm w-50 fw-bold text-white text-center py-1.5" style="background-color: #ff007f; border: none; box-shadow: 0 0 8px #ff007f; text-decoration: none;">Excluir</a>
+                    </div>
+                    {% else %}
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'comprar_produto' prod.id 'local' %}" class="btn btn-sm w-100 fw-bold text-white text-center py-2" style="background-color: #ff007f; box-shadow: 0 0 10px #ff007f; border: none; text-decoration: none;">
+                            Comprar Item
+                        </a>
+                        <a href="{% url 'adicionar_ao_carrinho' prod.id %}" class="btn btn-sm fw-bold text-info py-2 px-3" style="background: transparent; border: 1px solid #00ffff; box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);" title="Adicionar ao Carrinho">
+                            🛒
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 mb-4">
+            <p class="text-white-50 small bg-dark p-3 rounded border border-secondary">Nenhum componente local em estoque no momento.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

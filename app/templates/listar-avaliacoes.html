@@ -1,0 +1,90 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Feedbacks de Componentes (NoSQL) - ElectroZone{% endblock %}
+
+{% block conteudo %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-white mb-0" style="text-shadow: 0 0 10px #8a2be2, 0 0 20px #00ffff;">
+                🛸 FEEDBACKS DE CLIENTES 
+            </h2>
+            <p class="text-white-50 small mb-0">Registros de avaliações técnicas</p>
+        </div>
+        <a href="{% url 'dashboard' %}" class="btn btn-sm fw-bold px-4 text-white" style="background: transparent; border: 1px solid #00ffff; box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); transition: 0.3s; text-decoration: none;">
+            Voltar para a dashboard
+        </a>
+    </div>
+
+    <div class="content-box" style="background: linear-gradient(135deg, #130b30 0%, #0a041c 100%); border: 1px solid #8a2be2; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); padding: 25px; overflow: hidden;">
+        
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0" style="background: transparent;">
+                <thead style="border-bottom: 2px solid #8a2be2;">
+                    <tr style="color: #00ffff; font-size: 13px; letter-spacing: 1px;">
+                        <th class="py-3 px-4">ID COLEÇÃO</th>
+                        <th class="py-3">COMPRADOR</th>
+                        <th class="py-3">REVIEW DO HARDWARE</th>
+                        <th class="py-3 text-center">PONTUAÇÃO</th>
+                        <th class="py-3 text-center">AÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size: 14px; border-top: none;">
+                    {% for avaliacao in avaliacoes %}
+                    <tr style="border-bottom: 1px solid #3d1d75; transition: 0.3s;">
+                        <td class="py-3 px-4 font-monospace" style="color: #ffffff70; font-size: 12px;" title="{{ avaliacao.id }}">
+                            {{ avaliacao.id|truncatechars:12 }}
+                        </td>
+                        <td class="py-3 fw-bold text-white">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle me-2" style="width: 8px; height: 8px; background-color: #8a2be2; box-shadow: 0 0 8px #8a2be2;"></div>
+                                {{ avaliacao.cliente }}
+                            </div>
+                        </td>
+                        <td class="text-white-50 italic" style="max-width: 300px; word-break: break-word;">
+                            "{{ avaliacao.comentario }}"
+                        </td>
+                        <td class="text-center fw-bold">
+                            <span style="color: #ff007f; text-shadow: 0 0 8px #ff007f;">
+                                {{ avaliacao.nota }} / 5 ⭐
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <a href="{% url 'delavaliacao' avaliacao.id %}" class="btn btn-sm px-3" style="background: rgba(255, 0, 127, 0.1); border: 1px solid #ff007f; color: #ff007f; transition: 0.3s; font-weight: bold; border-radius: 6px;" onclick="return confirm('Deseja deletar permanentemente esta avaliação do NoSQL?')">
+                                🗑️ Deletar
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-5 text-white-50">
+                            <i class="display-1 d-block mb-3" style="opacity: 0.2;">☁️</i>
+                            Nenhuma avaliação técnica foi armazenada no momento.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex gap-3">
+        <div class="p-3 rounded" style="background: rgba(138, 43, 226, 0.1); border-left: 4px solid #8a2be2; flex: 1;">
+            <span class="text-white-50 small d-block">DATABASE</span>
+            <h4 class="text-white fw-bold mb-0" style="font-size: 16px; letter-spacing: 0.5px;">Google Firebase Firestore</h4>
+        </div>
+        <div class="p-3 rounded" style="background: rgba(0, 255, 255, 0.1); border-left: 4px solid #00ffff; flex: 1;">
+            <span class="text-white-50 small d-block">TOTAL LOGS</span>
+            <h4 class="text-white fw-bold mb-0" style="color: #00ffff !important;">{{ avaliacoes|length }} Documentos</h4>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Efeito de iluminação interna nas linhas da tabela ao passar o cursor */
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 255, 255, 0.02) !important;
+        box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.05);
+    }
+</style>
+{% endblock %}

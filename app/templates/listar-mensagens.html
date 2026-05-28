@@ -1,0 +1,66 @@
+{% extends 'template.html' %}
+
+{% block conteudo %}
+<div class="container py-5">
+    <div class="content-box" style="background: linear-gradient(135deg, #130b30 0%, #0a041c 100%); border: 1px solid #8a2be2; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); padding: 25px;">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="fw-bold text-white mb-1" style="text-shadow: 0 0 10px #8a2be2;">📬 MENSAGENS RECEBIDAS</h3>
+                <p class="text-white-50 small mb-0">Logs de contato enviados por usuários e clientes do sistema.</p>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table align-middle mb-0 text-white" style="--bs-table-bg: transparent;">
+                <thead style="background-color: #110929; color: #00ffff; border-bottom: 2px solid #8a2be2;" class="text-center">
+                    <tr class="small">
+                        <th class="py-3" style="width: 8%;">ID</th>
+                        <th class="py-3 text-start" style="width: 22%;">Remetente</th>
+                        <th class="py-3 text-start" style="width: 25%;">E-mail</th>
+                        <th class="py-3 text-start" style="width: 35%;">Mensagem</th>
+                        <th class="py-3" style="width: 10%;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+    {% for contato in contatos %}
+    <tr style="border-bottom: 1px solid #3d1d75;">
+        <td class="py-3 text-center" style="color: #00ffff; font-weight: bold;">
+            #{{ contato.id }}
+        </td>
+        
+        <td class="py-3 fw-bold text-white">
+            {{ contato.nome }}
+        </td>
+        
+        <td class="py-3 text-white-50">
+            {{ contato.email }}
+        </td>
+        
+        <td class="py-3 text-white-50">
+            {{ contato.mensagem }}
+        </td>
+        
+        <td class="text-center py-3">
+            <a href="{% url 'delcontato' contato.id %}" 
+               class="btn btn-sm px-3" 
+               style="background: rgba(255, 0, 127, 0.1); border: 1px solid #ff007f; color: #ff007f; transition: 0.3s; font-weight: bold; border-radius: 6px;"
+               onclick="return confirm('Tem certeza que deseja arquivar esta mensagem?')">
+                Arquivar
+            </a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5" class="text-center py-4 text-white-50">
+            Nenhuma mensagem recebida no painel.
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

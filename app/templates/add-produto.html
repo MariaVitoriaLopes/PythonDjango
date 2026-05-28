@@ -1,0 +1,69 @@
+{% extends 'template.html' %}
+
+{% block titulo %}ElectroZone - {% if editando %}Editar{% else %}Adicionar{% endif %} Produto{% endblock %}
+
+{% block conteudo %}
+<div class="container py-5 d-flex justify-content-center">
+    <div class="content-box w-100" style="max-width: 600px; background: linear-gradient(135deg, #130b30 0%, #0a041c 100%); border: 1px solid #8a2be2; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); padding: 35px;">
+        
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-white mb-2" style="text-shadow: 0 0 10px #8a2be2;">
+                {% if editando %}⚡ RECONFIGURAR HARDWARE{% else %}⚡ INJECT NEW HARDWARE{% endif %}
+            </h2>
+            <p class="text-white-50 small">Preencha os parâmetros para registrar o componente no banco SQL.</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="text-white">
+            {% csrf_token %}
+            
+            {% for field in form %}
+            <div class="mb-3 text-start">
+                <label class="form-label small fw-bold text-white-50 ms-1">{{ field.label }}</label>
+                
+                {% if field.field.widget.input_type == "file" %}
+                    <div class="p-2 rounded" style="background-color: #110929; border: 1px dashed #8a2be2;">
+                        {{ field }}
+                    </div>
+                {% else %}
+                    <div class="input-group">
+                        {{ field }}
+                    </div>
+                {% endif %}
+
+                {% if field.errors %}
+                    <div class="text-danger small mt-1">
+                        {{ field.errors|striptags }}
+                    </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <div class="d-flex flex-column gap-2 mt-4">
+                <button type="submit" class="btn fw-bold text-white py-2.5" style="background-color: #ff007f; box-shadow: 0 0 12px #ff007f; border: none; transition: 0.2s;">
+                    {% if editando %}Salvar Alterações{% else %}Confirmar e Cadastrar{% endif %}
+                </button>
+                <a href="{% url 'listarprodutoadmin' %}" class="btn btn-sm text-white-50 text-center mt-2 bg-transparent border-0 small">
+                    Cancelar e Voltar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            if(input.type !== 'file' && input.type !== 'checkbox') {
+                input.classList.add('form-control', 'bg-transparent', 'text-white', 'small');
+                input.style.border = '1px solid #3d1d75';
+                input.style.boxShadow = 'none';
+                
+                // Efeito Focus Neon
+                input.addEventListener('focus', () => { input.style.borderColor = '#00ffff'; });
+                input.addEventListener('blur', () => { input.style.borderColor = '#3d1d75'; });
+            }
+        });
+    });
+</script>
+{% endblock %}

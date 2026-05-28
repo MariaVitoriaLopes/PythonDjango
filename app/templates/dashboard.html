@@ -1,0 +1,100 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+<style>
+    .admin-card {
+        background: #110929;
+        border: 1px solid #8a2be2;
+        border-radius: 8px;
+        padding: 30px 20px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .admin-card h5 {
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 15px;
+    }
+    .admin-card p {
+        font-size: 13px;
+        color: #ffffff;
+        margin-bottom: 20px;
+    }
+    .indicator-line {
+        width: 35px;
+        height: 3px;
+        background-color: #00ffff;
+        margin: 0 auto 15px auto;
+        border-radius: 2px;
+        box-shadow: 0 0 8px #00ffff;
+    }
+    .btn-admin-access {
+        background-color: #180f38;
+        border: 1px solid #00ffff;
+        color: #00ffff;
+        font-weight: bold;
+        font-size: 13px;
+        padding: 5px 20px;
+        transition: all 0.2s;
+        border-radius: 4px;
+    }
+    .btn-admin-access:hover {
+        background-color: #00ffff;
+        color: #0b061f;
+    }
+</style>
+
+<div class="container py-5">
+    <h2 class="section-title mb-5">Painel de Controle Eletrônicos</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="admin-card">
+                <div class="indicator-line"></div>
+                <h5>Clientes</h5>
+                <p>Gerencie as contas e acessos dos compradores.</p>
+                <a href="{% url 'listarusuarios' %}" class="btn btn-admin-access">Acessar</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="admin-card">
+                <div class="indicator-line"></div>
+                <h5>Produtos</h5>
+                <p>Cadastre novos itens, altere estoques e valores.</p>
+                <a href="{% url 'listarprodutoadmin' %}" class="btn btn-admin-access">Acessar</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="admin-card">
+                <div class="indicator-line"></div>
+                <h5>Categorias de Peças</h5>
+                <p>Gerencie classificações (ex: GPUs, Periféricos).</p>
+                <a href="{% url 'categoria' %}" class="btn btn-admin-access">Acessar</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="admin-card">
+                <div class="indicator-line"></div>
+                <h5>Pedidos Concluídos</h5>
+                <p>Monitore e rastreie notas fiscais e vendas de hardware.</p>
+                <a href="{% url 'listarvendas' %}" class="btn btn-admin-access">Acessar</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="admin-card">
+                <div class="indicator-line"></div>
+                <h5>Suporte Técnico</h5>
+                <p>Responda mensagens sobre defeitos e compatibilidades.</p>
+                <a href="{% url 'listarmensagens' %}" class="btn btn-admin-access">Acessar</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="admin-card">
+                <div class="indicator-line"></div>
+                <h5> Avaliações</h5>
+                <p>Monitore avaliações e estrelas de produtos enviadas.</p>
+                <a href="{% url 'listaravaliacoes' %}" class="btn btn-admin-access">Acessar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

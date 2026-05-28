@@ -1,0 +1,42 @@
+{% extends 'template.html' %}
+
+{% block titulo %}Editar Comprador{% endblock %}
+
+{% block conteudo %}
+<div class="container py-5 d-flex justify-content-center">
+    <div class="content-box w-100" style="max-width: 650px; background: linear-gradient(135deg, #130b30 0%, #0a041c 100%); border: 1px solid #8a2be2; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); padding: 35px;">
+        
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-white mb-2" style="text-shadow: 0 0 10px #8a2be2;">⚙️ ALTERAR CADASTRO</h2>
+            <p class="text-white-50 small">Modifique as credenciais de diretriz do cliente selecionado.</p>
+        </div>
+
+        <form method="POST" class="text-white">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label small fw-bold text-white-50">NOME DE USUÁRIO (USERNAME)</label>
+                <input type="text" name="username" value="{{ comprador.username }}" class="form-control text-white" required style="background: #0d0621; border: 1px solid #3d1d75;">
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label small fw-bold text-white-50">ENDEREÇO DE EMAIL</label>
+                <input type="email" name="email" value="{{ comprador.email }}" class="form-control text-white" required style="background: #0d0621; border: 1px solid #3d1d75;">
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <button type="submit" class="btn w-100 fw-bold text-white py-2.5" style="background-color: #8a2be2; box-shadow: 0 0 12px #8a2be2; border: none;">
+                        SALVAR ALTERAÇÕES
+                    </button>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'listarusuarios' %}" class="btn w-100 fw-bold text-info py-2.5" style="background-color: transparent; border: 1px solid #00ffff; box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);">
+                        CANCELAR
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
